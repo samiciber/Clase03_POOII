@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Clase03.Models.Cliente>
+
+@{
+    ViewBag.Title = "Gestión de Clientes";
+}
+
+<div class="container mt-5">
+
+    <div class="row mb-3 align-items-center">
+        <div class="col-md-8">
+            <h1 class="display-6 text-primary">
+                <i class="fas fa-users me-2"></i> Listado de Clientes
+            </h1>
+            <p class="text-muted">Visualización y gestión de las empresas registradas en el sistema.</p>
+        </div>
+        <div class="col-md-4 text-md-end">
+            <a href="@Url.Action("Create", "Cliente")" class="btn btn-success btn-lg shadow-sm">
+                <i class="fas fa-plus me-2"></i> Registrar Nuevo Cliente
+            </a>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="card shadow-lg border-0">
+        <div class="card-body p-0">
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col" style="width: 80px;">@Html.DisplayNameFor(model => model.idcliente)</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.nombrecia)</th>
+                            <th scope="col">@Html.DisplayNameFor(model => model.direccion)</th>
+                            <th scope="col" style="width: 80px;">@Html.DisplayNameFor(model => model.idpais)</th>
+                            <th scope="col" style="width: 120px;">@Html.DisplayNameFor(model => model.fono)</th>
+                            <th scope="col" class="text-center" style="width: 150px;">Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="fw-bold">@Html.DisplayFor(modelItem => item.idcliente)</td>
+                                <td>
+                                    <a href="@Url.Action("Details", "Cliente", new { id = item.idcliente })" class="text-decoration-none text-dark">
+                                        <strong>@Html.DisplayFor(modelItem => item.nombrecia)</strong>
+                                    </a>
+                                </td>
+                                <td class="text-truncate" style="max-width: 300px;">@Html.DisplayFor(modelItem => item.direccion)</td>
+                                <td>
+                                    <span class="badge bg-secondary">@Html.DisplayFor(modelItem => item.idpais)</span>
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.fono)</td>
+                                <td class="text-center">
+                                    <a href="@Url.Action("Edit", "Cliente", new { id = item.idcliente })" class="btn btn-sm btn-outline-info" title="Editar Registro">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="@Url.Action("Details", "Cliente", new { id = item.idcliente })" class="btn btn-sm btn-outline-secondary" title="Ver Detalles">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                    <a href="@Url.Action("Delete", "Cliente", new { id = item.idcliente })" class="btn btn-sm btn-outline-danger" title="Eliminar Registro">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center py-4">
+                                    <i class="fas fa-exclamation-triangle text-warning me-2"></i> No se han encontrado clientes en la base de datos.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
